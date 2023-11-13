@@ -46,8 +46,8 @@ class TestTransactions:
         transaction_1 = Transaction(customer, coffee_1, 2)
         transaction_2 = Transaction(customer, coffee_2, 5)
 
-        assert (transaction_1.pizza == coffee_1)
-        assert (transaction_2.pizza == coffee_2)
+        assert (transaction_1.coffee == coffee_1)
+        assert (transaction_2.coffee == coffee_2)
 
     def test_coffee_of_type_coffee(self):
         ''' Tests that an transaction's coffee is of type `Coffee`. '''
@@ -68,6 +68,16 @@ class TestTransactions:
         transaction_1 = Transaction(customer_1, coffee, 2)
         transaction_2 = Transaction(customer_2, coffee, 5)
 
-        assert (len(Transaction.catalog) == 2)
         assert (transaction_1 in Transaction.catalog)
         assert (transaction_2 in Transaction.catalog)
+
+    def test_get_total_num_of_transactions(self):
+        ''' Tests that the `Transaction` class is tracking a global counter of created instances. '''
+        Transaction.counter = 0
+        coffee = Coffee("Cappuccino")
+        customer_1 = Customer('Wayne')
+        customer_2 = Customer('Dima')
+        transaction_1 = Transaction(customer_1, coffee, 2)
+        transaction_2 = Transaction(customer_2, coffee, 5)
+
+        assert (Transaction.counter == 2)
